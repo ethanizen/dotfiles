@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Use neovim instead of vim if available
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
+# Settings always applied to certain commands
+alias \
+    bat="cat/sys/class/power_supply/BAT?/capacity" \
+    cp="cp -iv" \
+    mv="mv -iv" \
+    rm="rm -v" \
+    mkd="mkdir -pv"
+
+# Colorize output automatically
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi"
+
+# Let's shorten some commands
+alias \
+    g="git" \
+    p="sudo pacman" \
+    v="$EDITOR"
