@@ -1,0 +1,14 @@
+
+!                                
+!  ██████╗  ██████╗ ███████╗██╗  
+!  ██╔══██╗██╔═══██╗██╔════╝██║  
+!  ██████╔╝██║   ██║█████╗  ██║  
+!  ██╔══██╗██║   ██║██╔══╝  ██║  
+!  ██║  ██║╚██████╔╝██║     ██║  
+!  ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝  
+!                                
+!  https://github.com/davatorium/rofi
+!  
+
+rofi.theme: /usr/share/rofi/themes/gruvbox-dark-soft.rasi
+rofi.terminal: alacritty
