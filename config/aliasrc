@@ -23,3 +23,6 @@ alias \
     g="git" \
     p="sudo pacman" \
     v="$EDITOR"
+
+# Tmux session with ncmpcpp and cover art
+alias music='tmux new-session "tmux source-file ~/.config/ncmpcpp/tmux_session"'

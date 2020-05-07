@@ -150,8 +150,11 @@ call plug#begin('~/.config/nvim/plugged/')
 	Plug 'tpope/vim-surround'
 	Plug 'severin-lemaignan/vim-minimap'
 	Plug 'junegunn/goyo.vim'
+	Plug 'junegunn/limelight.vim'
 	Plug 'lervag/vimtex'
 	Plug 'sirver/ultisnips'
+	Plug 'kblin/vim-fountain'
+	Plug 'chrisbra/csv.vim'
 call plug#end()
 
 " Vimtex settings
@@ -171,6 +174,9 @@ aug i3config_ft_detection
   au!
   au BufNewFile,BufRead ~/.config/i3/config set filetype=i3config
 aug end
+
+" Limelight settings
+let g:limelight_conceal_guifg = '#a89984'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
@@ -357,6 +363,11 @@ endfun
 if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
+
+" Toggle goyo
+nnoremap <Leader>gy :Goyo<CR>
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking

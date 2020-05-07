@@ -96,7 +96,7 @@ font-1 = Noto Sans CJK JP:pixelsize=11:antialias=true;2
 
 modules-left = i3
 modules-center = date 
-modules-right = bluetooth filesystem alsa xkeyboard memory cpu temperature battery wlan  
+modules-right = mpd bluetooth filesystem alsa xkeyboard memory cpu temperature battery wlan  
 
 tray-position = right
 tray-padding = 2
@@ -204,7 +204,7 @@ label-urgent-padding = 2
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song>
 host = ::1
 
 icon-prev = < /

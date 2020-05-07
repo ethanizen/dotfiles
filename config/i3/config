@@ -207,7 +207,14 @@ bindsym $mod+Shift+s		gaps inner current minus 5
 bindsym $mod+w exec feh --no-fehbg --randomize --bg-fill ~/Images/Wallpapers
 bindsym $mod+o exec rofi -show ssh
 bindsym $mod+m exec i3-layout-manager
+
 bindsym $mod+b exec --no-startup-id rofi-bluetooth
+bindsym $mod+Shift+b floating toggle; sticky toggle; exec --no-startup-id hover left
+
+bindsym $mod+Shift+n floating toggle; sticky toggle; exec --no-startup-id hover right
+
+bindsym $mod+n exec hover "left"
+
 bindsym --release Print exec flameshot gui
 
 for_window [class="^.*"] border pixel 0
