@@ -204,7 +204,7 @@ bindsym $mod+Shift+s		gaps inner current minus 5
 #        status_command i3status
 #}
 
-bindsym $mod+w exec feh --no-fehbg --randomize --bg-fill ~/Images/Wallpapers
+bindsym $mod+w exec feh --no-fehbg --randomize --bg-fill $HOME/data/media/pictures/wallpapers
 bindsym $mod+o exec rofi -show ssh
 bindsym $mod+m exec i3-layout-manager
 
@@ -213,7 +213,7 @@ bindsym $mod+Shift+b floating toggle; sticky toggle; exec --no-startup-id hover 
 
 bindsym $mod+Shift+n floating toggle; sticky toggle; exec --no-startup-id hover right
 
-bindsym $mod+n exec hover "left"
+bindsym $mod+n exec rofi-randr
 
 bindsym --release Print exec flameshot gui
 
@@ -222,8 +222,8 @@ gaps inner 25
 gaps top 25 
 
 # The first three will not be run on i3 restart. This is to avoid memory problems.
-exec --no-startup-id compton --config ~/.config/compton/i3compton.conf 
-# exec --no-startup-id polybar i3 
-exec --no-startup-id sxhkd
-exec_always --no-startup-id feh --no-fehbg --randomize --bg-fill ~/Images/Wallpapers
+exec --no-startup-id remaps
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id sxhkd
+exec_always --no-startup-id feh --no-fehbg --randomize --bg-fill $HOME/data/media/pictures/wallpapers
+exec --no-startup-id spotifyd

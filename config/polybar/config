@@ -22,51 +22,6 @@ primary = #F9AF4F
 secondary = #91B362
 alert = #EA6C73
 
-[bar/bspwm]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
-height = 25
-;offset-x = 1%
-;offset-y = 1%
-;radius = 6.0
-fixed-center = false
-
-background = #cc0A0E14
-foreground = ${colors.foreground}
-
-line-size = 3
-line-color = #f00
-
-border-size = 0
-border-color = #00000000
-
-padding-left = 0
-padding-right = 2
-
-module-margin-left = 1
-module-margin-right = 2
-
-font-0 = Noto Sans:pixelsize=11:antialias=true;2
-font-1 = Noto Sans CJK JP:pixelsize=11:antialias=true;2
-
-modules-left = bspwm 
-modules-center = mpd
-modules-right = filesystem pulseaudio xkeyboard memory cpu temperature date 
-
-tray-position = right
-tray-padding = 2
-;tray-background = #0063ff
-
-wm-restack = bspwm
-
-override-redirect = true
-
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
-
 [bar/i3]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
@@ -91,12 +46,13 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Noto Sans:pixelsize=11:antialias=true;2
-font-1 = Noto Sans CJK JP:pixelsize=11:antialias=true;2
+font-0 = Hack Regular Nerd Font Complete:pixelsize=11:antialias=true;2
+font-1 = Font Awesome 5 Free:pxielsize=11;antialias=true;2
+;font-1 = Noto Sans CJK JP:pixelsize=11:antialias=true;2
 
-modules-left = i3
+modules-left = i3 xwindow
 modules-center = date 
-modules-right = mpd bluetooth filesystem alsa xkeyboard memory cpu temperature battery wlan  
+modules-right = player-mpris-simple mpd bluetooth filesystem alsa xkeyboard memory cpu temperature battery wlan  
 
 tray-position = right
 tray-padding = 2
@@ -228,6 +184,14 @@ format-underline = #1db954
 type = custom/script
 exec = $HOME/.config/polybar/player-mpris-tail.py -f '{icon} {artist} - {title}'
 tail = true
+
+[module/player-mpris-simple]
+type = custom/script
+exec = $HOME/.config/polybar/player-mpris-simple.sh
+interval = 3
+click-left = playerctl previous &
+click-right = playerctl next &
+click-middle = playerctl play-pause &
 
 [module/xbacklight]
 type = internal/xbacklight

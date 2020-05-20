@@ -13,7 +13,7 @@
 ## file which defines that while launching ncmpcpp.
 ##
 #
-#ncmpcpp_directory = ~/.ncmpcpp
+ncmpcpp_directory = "$XDG_CACHE_HOME"/ncmpcpp
 #
 ##
 ## Directory for storing downloaded lyrics. It
@@ -21,7 +21,7 @@
 ## (eg. ncmpc) also use that location.
 ##
 #
-#lyrics_directory = ~/.lyrics
+lyrics_directory = ~/data/media/music
 #
 ##### connection settings #####
 #

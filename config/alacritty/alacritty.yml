@@ -43,7 +43,8 @@ window:
   #   - none: Neither borders nor title bar
   #   - (MacOS) transparent: Title bar, transparent background and title bar buttons
   #   - (MacOS) buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: none 
+  decorations: full
+  # decorations: none 
 
   #   - Windowed
   #   - Maximized
@@ -73,15 +74,15 @@ scrolling:
 
 font:
   normal:
-    family: Fantasque Sans Mono 
+    family: Hack
     style: Regular
 
   bold:
-    family: Fantasque Sans Mono 
+    family: Hack
     style: Bold
 
   italic:
-    family: Fantasque Sans Mono 
+    family: Hack
     style: Italic
 
   # Point size

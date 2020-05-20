@@ -1,4 +1,4 @@
-ZSH=/usr/share/oh-my-zsh/
+ZSH=$HOME/.oh-my-zsh/
 ZSH_CUSTOM=~/.config/zsh/
 ZSH_THEME="mytheme"
 DISABLE_AUTO_UPDATE="true"
@@ -20,8 +20,8 @@ fi
 [[ -f "$ZSH/oh-my-zsh.sh" ]] \
 	&& source $ZSH/oh-my-zsh.sh
 
-if [ -d "$HOME/.local/scripts/" ] ; then
-    export PATH="$HOME/.local/scripts/:$PATH"
+if [ -d "$HOME/.local/bin/" ] ; then
+    export PATH="$HOME/.local/bin/:$PATH"
 fi
 
 [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] \

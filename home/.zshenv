@@ -1,2 +1,3 @@
-export EDITOR="/usr/bin/nvim"
-export VISUAL="/usr/bin/nvim"
+#!/bin/zsh
+
+[ -f "$HOME/.config/env" ] && source "$HOME/.config/env"
