@@ -41,18 +41,23 @@ border-size = 0
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 1
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
-font-0 = Hack Regular Nerd Font Complete:pixelsize=11:antialias=true;2
-font-1 = Font Awesome 5 Free:pxielsize=11;antialias=true;2
+font-0 = Hack Nerd Font:style=Regular:pixelsize=11:antialias=true;0
+font-1 = FontAwesome5Free:style=Solid:pxielsize=11:antialias=true;1
+font-2 = FontAwesome5Free:style=Regular:pxielsize=11:antialias=true;1
+font-3 = FontAwesome5Brands:style=Regular:pxielsize=11:antialias=true;1
+font-4 = Siji:style=Regular:pixelsize=9:antialias=true;2
+font-5 = Symbola:scale=8:antialias=true;3
+;font-5 = NotoEmoji:scale=11:antialias=true;grayscale=true;0
 ;font-1 = Noto Sans CJK JP:pixelsize=11:antialias=true;2
 
 modules-left = i3 xwindow
 modules-center = date 
-modules-right = player-mpris-simple mpd bluetooth filesystem alsa xkeyboard memory cpu temperature battery wlan  
+modules-right = updates-pacman spotify mpd bluetooth filesystem pulseaudio memory cpu temperature battery wlan network-traffic  
 
 tray-position = right
 tray-padding = 2
@@ -78,15 +83,15 @@ blacklist-0 = num lock
 
 format-prefix = "KEY "
 format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+#format-prefix-underline = ${colors.secondary}
 
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+#label-layout-underline = ${colors.secondary}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+#label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
 type = internal/fs
@@ -129,7 +134,7 @@ wrapping-scroll = false
 ; Only show workspaces on the same output as the bar
 ;pin-workspaces = true
 
-label-mode-padding = 2
+label-mode-padding = 1
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
@@ -137,11 +142,11 @@ label-mode-background = ${colors.primary}
 label-focused = %index%
 label-focused-background = #cc0A0E14
 label-focused-underline= ${colors.primary}
-label-focused-padding = 2
+label-focused-padding = 1
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
-label-unfocused-padding = 2
+label-unfocused-padding = 1
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%
@@ -152,7 +157,7 @@ label-visible-padding = ${self.label-focused-padding}
 ; urgent = Workspace with urgency hint set
 label-urgent = %index%
 label-urgent-background = #cc0A0E14
-label-urgent-padding = 2
+label-urgent-padding = 1
 
 ; Separator in between workspaces
 ; label-separator = |
@@ -177,17 +182,16 @@ type = custom/script
 interval = 1
 format-prefix = " "
 format = <label>
-exec = python $HOME/.config/polybar/spotify_status.py -f '{artist} - {song}'
-format-underline = #1db954
+exec = python $HOME/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
 
 [module/player-mpris-tail]
 type = custom/script
-exec = $HOME/.config/polybar/player-mpris-tail.py -f '{icon} {artist} - {title}'
+exec = $HOME/.config/polybar/scripts/player-mpris-tail.py -f '{icon} {artist} - {title}'
 tail = true
 
 [module/player-mpris-simple]
 type = custom/script
-exec = $HOME/.config/polybar/player-mpris-simple.sh
+exec = $HOME/.config/polybar/scripts/player-mpris-simple.sh
 interval = 3
 click-left = playerctl previous &
 click-right = playerctl next &
@@ -218,9 +222,9 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "CPU "
+format-prefix = "CPU"
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #EA6C73
+#format-underline = #EA6C73
 label = %percentage:2%%
 
 [module/memory]
@@ -228,16 +232,21 @@ type = internal/memory
 interval = 2
 format-prefix = "MEM "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #90E1C6
+#format-underline = #90E1C6
 label = %percentage_used%%
+
+[module/network-traffic]
+type = custom/script
+exec = ~/.config/polybar/scripts/network-traffic.sh
+tail = true
 
 [module/wlan]
 type = internal/network
 interface = wlp7s0 
 interval = 3.0
 
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+format-connected = <label-connected>
+#format-connected-underline = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
@@ -264,7 +273,7 @@ type = internal/network
 interface = enp8s0 
 interval = 3.0
 
-format-connected-underline = #55aa55
+#format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
@@ -287,7 +296,7 @@ time-alt = %H:%M:%S
 
 format-prefix = TIME 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #53BDFA
+#format-underline = #53BDFA
 
 label = %date% %time%
 
@@ -353,29 +362,36 @@ adapter = ADP0
 full-at = 99
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+;format-charging-underline = #ffb52a
 
 format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+;format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
+format-full-prefix = "  "
 format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
+;format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = " "
+ramp-capacity-1 = " "
+ramp-capacity-2 = " "
+ramp-capacity-3 = " "
+ramp-capacity-4 = " "
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = " "
+animation-charging-1 = " "
+animation-charging-2 = " "
+animation-charging-3 = " "
+animation-charging-4 = " "
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
+; Only applies if <animation-discharging> is used
+animation-discharging-0 = " "
+animation-discharging-1 = " "
+animation-discharging-2 = " "
+animation-discharging-3 = " "
+animation-discharging-4 = " "
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
@@ -384,12 +400,12 @@ type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
 
 format = <ramp> <label>
-format-underline = #EA6C73
+#format-underline = #EA6C73
 format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
+#format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
 label-warn = %temperature-c%
@@ -442,3 +458,9 @@ margin-top = 5
 margin-bottom = 5
 
 ; vim:ft=dosini
+
+[module/updates-pacman]
+type = custom/script
+exec = ~/.config/polybar/scripts/updates-pacman.sh
+label-font = 2
+interval = 600

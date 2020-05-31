@@ -4,10 +4,10 @@ ZSH_THEME="mytheme"
 DISABLE_AUTO_UPDATE="true"
 FZF_BASE="/usr/share/fzf"
 plugins=(
-    fzf
-    git
+#    fzf
+#    git
     z
-    cp
+#    cp
     sudo
     fancy-ctrl-z
 )

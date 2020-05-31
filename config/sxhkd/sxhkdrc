@@ -22,7 +22,7 @@ XF86AudioMute
 
 # Terminal Emulator
 super + Return
-    alacritty	
+    st	
 
 # Program Launcher
 super + space
@@ -36,3 +36,5 @@ super + Escape
 super + shift + w
     feh --bg-fill --no-fehbg --randomize $HOME/data/media/pictures/wallapapers
 
+super + d
+	passmenu
