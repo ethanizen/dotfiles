@@ -1,0 +1,6 @@
+alias v=nvim
+alias vim=nvim
+
+alias p='sudo pacman'
+
+alias neofetch='neofetch --disable host kernel uptime packages resolution theme icons cpu gpu memory'

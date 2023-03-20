@@ -1,0 +1,24 @@
+#!/bin/sh
+
+VM="$1"
+
+NETSTATUS=$(sudo virsh net-list --all | grep "default")
+
+if [[ $NETSTATUS == *"inactive"* ]]; then
+	echo "Starting network \`default\`..."
+	if sudo virsh net-start default ; then
+		echo "Network started."
+	else
+		echo "ERROR: Failed to start network \`default\`."
+		exit 1
+	fi
+fi
+
+echo "Starting VM $VM..."
+if sudo virsh start "$VM" ; then
+	echo "Started VM."
+else
+	echo "ERROR: Failed to start VM $VM."
+fi
+
+sudo virt-viewer --attach

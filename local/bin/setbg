@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# This script sets the background. Will be made better in the future,
+# quick and dirty rn
+
+bgloc="$HOME/.local/share/bg_gruvbox.png"
+
+xwallpaper --zoom "$bgloc"

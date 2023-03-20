@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xrandr --output DisplayPort-5 --primary --mode 1920x1080 --rate 143.85 --output HDMI-A-5 --mode 1920x1080 --rate 60.00 --left-of DisplayPort-5

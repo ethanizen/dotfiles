@@ -1,0 +1,1 @@
+kdesu -c "virt-viewer --attach"
