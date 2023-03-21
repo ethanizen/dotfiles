@@ -25,7 +25,10 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
 # Aliases
-if [ -f $HOME/.config/zsh/aliasrc ]; then
+if [[ -f $HOME/.config/zsh/aliasrc ]]; then
 	source $HOME/.config/zsh/aliasrc
 fi
-export PATH=$PATH:/home/ethan/.spicetify
+# Machine specific aliases
+if [[ -f $HOME/.config/zsh/local_aliasrc ]]; then
+	source $HOME/.config/zsh/local_aliasrc;
+fi

@@ -1,5 +1,5 @@
-alias v=nvim
-alias vim=nvim
+v=nvim
+vim=nvim
 
 alias p='sudo pacman'
 
