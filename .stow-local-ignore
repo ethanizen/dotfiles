@@ -1,4 +1,7 @@
 \.git
 \.gitignore
 
+\.steam*
+\.steam/*
+
 README.*
