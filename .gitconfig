@@ -1,0 +1,7 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+name = Ethan Izenwasser
+email = 40236542+ethanizen@users.noreply.github.com
+[init]
+	defaultBranch = main

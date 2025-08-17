@@ -1,0 +1,8 @@
+# PATH
+export PATH="$PATH:/home/howley/.local/bin/"
+
+
+alias v="nvim"
+alias vim="nvim"
+
+alias ls="eza -a"
