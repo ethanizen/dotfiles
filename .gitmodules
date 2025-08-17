@@ -7,3 +7,6 @@
 [submodule ".config/tmux/plugins/tmux-resurrect"]
 	path = .config/tmux/plugins/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule ".config/tmux/plugins/tmux-gruvbox"]
+	path = .config/tmux/plugins/tmux-gruvbox
+	url = https://github.com/egel/tmux-gruvbox.git
