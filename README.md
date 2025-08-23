@@ -9,7 +9,7 @@ Config files for
 * and some helpful scripts
 
 ```bash
-.
+~
 ├── .config
 │   ├── kitty
 │   ├── nvim
@@ -17,9 +17,9 @@ Config files for
 ├── .gitconfig
 ├── .local
 │   └── bin
+├── .p10k.zsh
 ├── .zsh_aliases
 └── .zshrc
-
 ```
 
 Files are organized using GNU `stow`. Install the files like this:
