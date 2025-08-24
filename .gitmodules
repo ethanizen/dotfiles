@@ -10,3 +10,6 @@
 [submodule ".config/tmux/plugins/tmux-gruvbox"]
 	path = .config/tmux/plugins/tmux-gruvbox
 	url = https://github.com/egel/tmux-gruvbox.git
+[submodule ".config/zsh/powerlevel10k"]
+	path = .config/zsh/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
