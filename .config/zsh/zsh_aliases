@@ -1,6 +1,8 @@
 # PATH
 export PATH="$PATH:/home/howley/.local/bin/"
 
+alias sudo="sudo "
+alias p="pacman"
 
 alias v="nvim"
 alias vim="nvim"
