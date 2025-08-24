@@ -1,24 +1,28 @@
 # ethanizen's Dotfiles
 
 Config files for  
+* hyprland (window manager)
 * kitty (terminal emulator)
 * zsh (shell) 
 * neovim (text-editor)
 * tmux (terminal multiplexer)
+* waybar (status bar)
 * git (you know what that is)
 * and some helpful scripts
 
 ```bash
 ~
 ├── .config
+│   ├── hypr
 │   ├── kitty
 │   ├── nvim
-│   └── tmux
+│   ├── tmux
+│   ├── waybar
+│   ├── yay
+│   └── zsh
 ├── .gitconfig
 ├── .local
 │   └── bin
-├── .p10k.zsh
-├── .zsh_aliases
 └── .zshrc
 ```
 
