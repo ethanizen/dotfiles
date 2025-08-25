@@ -13,3 +13,6 @@
 [submodule ".config/zsh/powerlevel10k"]
 	path = .config/zsh/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule ".config/zsh/plugins/zsh-autosuggestions"]
+	path = .config/zsh/plugins/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git

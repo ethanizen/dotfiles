@@ -9,7 +9,14 @@ if [ -f ~/.config/zsh/zsh_aliases ]; then
     . ~/.config/zsh/zsh_aliases
 fi
 
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
 source ~/.config/zsh/powerlevel10k/powerlevel10k.zsh-theme
+
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
