@@ -20,6 +20,18 @@ vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.expandtab = true
 
+-- Case-insensitive search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Highlight yanks
+vim.cmd[[
+augroup highlight_yank
+autocmd!
+au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=150})
+augroup END
+]]
+
 -- Remaps
 vim.keymap.set("n", "<leader>pv", "<cmd>NvimTreeToggle<cr>", { desc = "File Manager" })
 

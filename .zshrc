@@ -9,6 +9,10 @@ if [ -f ~/.config/zsh/zsh_aliases ]; then
     . ~/.config/zsh/zsh_aliases
 fi
 
+if [ -f ~/.config/zsh/zsh_options ]; then
+    . ~/.config/zsh/zsh_options
+fi
+
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
