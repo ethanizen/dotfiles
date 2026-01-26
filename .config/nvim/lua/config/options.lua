@@ -20,6 +20,9 @@ vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.expandtab = true
 
+-- Use system clipboard
+vim.o.clipboard="unnamedplus"
+
 -- Case-insensitive search
 vim.o.ignorecase = true
 vim.o.smartcase = true
