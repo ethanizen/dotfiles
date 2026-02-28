@@ -13,6 +13,10 @@ if [ -f ~/.config/zsh/zsh_options ]; then
     . ~/.config/zsh/zsh_options
 fi
 
+if [ -f ~/.config/zsh/zsh_local_options ]; then
+    . ~/.config/zsh/zsh_local_options
+fi
+
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
