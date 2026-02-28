@@ -1,3 +1,4 @@
+7zip
 accountsservice
 alacritty
 alsa-firmware
@@ -39,6 +40,7 @@ cachyos-wallpapers
 cachyos-zsh-config
 calibre
 cantarell-fonts
+chafa
 chromium
 chwd
 cliphist
@@ -53,6 +55,7 @@ dmidecode
 dmraid
 dnsmasq
 docker
+docker-compose
 dolphin
 dosfstools
 duf
@@ -68,6 +71,7 @@ fastfetch
 ffmpegthumbnailer
 firefox
 flameshot
+foot
 fsarchiver
 geekbench
 git
@@ -76,7 +80,7 @@ glow
 gnome-calculator
 gparted
 gphoto2
-grim
+grim-hyprland-git
 gst-libav
 gst-plugin-pipewire
 gst-plugin-va
@@ -148,6 +152,7 @@ noto-fonts-emoji
 npm
 nss-mdns
 ntp
+nwg-displays
 octopi
 openbsd-netcat
 opencl-mesa
@@ -175,15 +180,19 @@ pyright
 python
 python-defusedxml
 python-packaging
+qemu-full
 qt6ct
 ranger
 rawtherapee
 rebuild-detector
 reflector
 ripgrep
+rocm-hip-sdk
+rocm-opencl-sdk
 rsync
 rust
 s-nail
+scdoc
 sddm
 sg3_utils
 smartmontools
@@ -192,6 +201,7 @@ sof-firmware
 steam
 stow
 sudo
+swtpm
 sxiv
 sysfsutils
 texinfo
@@ -215,8 +225,10 @@ usb_modeswitch
 usbutils
 uwsm
 vim
+virt-manager
 vlc
 vlc-plugins-all
+vulkan-headers
 vulkan-intel
 vulkan-radeon
 waybar
