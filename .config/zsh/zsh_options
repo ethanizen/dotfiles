@@ -12,3 +12,5 @@ bindkey "^[[1;5D" backward-word
 # 
 # [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 # [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
+
+eval "$(ssh-agent -s > /dev/null 2>&1)"

@@ -8,3 +8,22 @@ alias v="nvim"
 alias vim="nvim"
 
 alias ls="eza -a"
+
+# Wake-on-lan
+wol() {
+  declare -A hosts=(
+    [lenin]="04:7c:16:00:ea:67"
+  )
+  local mac="${hosts[$1]}"
+  [[ -z "$mac" ]] && { echo "unknown host: $1" >&2; return 1; }
+  wakeonlan "$mac"   # or: wol "$mac" / ether-wake "$mac"
+}
+
+# Pings silently until the host responds
+awake() {
+    local host="${1:?usage: awake <host>}"
+    while ! ping -c 1 -W 2 "$host" > /dev/null 2>&1; do
+        sleep 5
+    done
+    echo "Success! $host is online."
+}
