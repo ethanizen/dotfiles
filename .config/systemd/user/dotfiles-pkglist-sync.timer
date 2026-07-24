@@ -1,0 +1,11 @@
+[Unit]
+Description=Weekly publish of the pacman package list
+
+[Timer]
+OnCalendar=Mon 10:00
+# Spread the run out, and catch up after a week the machine was off.
+RandomizedDelaySec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

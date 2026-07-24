@@ -1,0 +1,160 @@
+#!/usr/bin/env bash
+#
+# Regenerate .config/pacman/pkglist.txt and publish it to GitHub.
+#
+# The package list belongs on main (see README), so the commit is always built
+# against main -- even while desktop is checked out. In that case the tree is
+# main's tree with a single blob swapped, which makes it structurally
+# impossible for this script to commit anything other than the package list.
+#
+# Pushes are append-only: no --force, no history rewriting, no branch deletion.
+# Anything unexpected stops the run rather than getting resolved automatically.
+#
+# The push key's location lives in an untracked local config, not in this repo
+# -- see CONFIG below.
+#
+# Usage: dotfiles-pkglist-sync [--dry-run]
+
+set -euo pipefail
+
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+PKGLIST=".config/pacman/pkglist.txt"
+
+# Machine-local, untracked: sets DOTFILES_SYNC_KEY.
+CONFIG="${DOTFILES_SYNC_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles-sync.env}"
+if [[ -z "${DOTFILES_SYNC_KEY:-}" && -r "$CONFIG" ]]; then
+	# shellcheck source=/dev/null
+	. "$CONFIG"
+fi
+KEY="${DOTFILES_SYNC_KEY:-}"
+
+dry_run=0
+[[ "${1:-}" == "--dry-run" ]] && dry_run=1
+
+log() { echo "pkglist-sync: $*"; }
+die() { echo "pkglist-sync: $*" >&2; exit 1; }
+
+# Every git call runs against the dotfiles repo regardless of where we started.
+git() { command git -C "$DOTFILES" "$@"; }
+
+tmp=""
+index=""
+trap 'rm -f "$tmp" "$index"' EXIT
+
+[[ -e "$DOTFILES/.git" ]] || die "no git repo at $DOTFILES"
+[[ -n "$KEY" ]] || die "DOTFILES_SYNC_KEY unset; expected it in $CONFIG"
+[[ -r "$KEY" ]] || die "push key named in $CONFIG is not readable"
+
+# Only this key, only this host, no prompts, no agent, no fallback identities.
+export GIT_SSH_COMMAND="ssh -i '$KEY' -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes"
+
+# The timer and a manual run must not interleave.
+exec {lock_fd}>"${XDG_RUNTIME_DIR:-/tmp}/dotfiles-pkglist-sync.lock"
+flock -n "$lock_fd" || { log "another run holds the lock; exiting"; exit 0; }
+
+branch=$(git symbolic-ref --quiet --short HEAD) || die "HEAD is detached; refusing to touch it"
+case "$branch" in
+	main|desktop) ;;
+	*) die "on branch '$branch'; expected main or desktop" ;;
+esac
+
+# An unattended committer must never sweep up whatever else is lying around.
+git diff --cached --quiet || die "staged changes present; refusing to commit"
+
+# Regenerate into a temp file first: a failed or empty pacman must not be able
+# to truncate the tracked list.
+tmp=$(mktemp)
+pacman -Qqe >"$tmp" || die "pacman -Qqe failed"
+[[ -s "$tmp" ]] || die "pacman -Qqe returned nothing; leaving the list alone"
+install -m 644 "$tmp" "$DOTFILES/$PKGLIST"
+
+new_blob=$(git hash-object -w -- "$DOTFILES/$PKGLIST")
+old_blob=$(git rev-parse --verify --quiet "main:$PKGLIST") || old_blob=""
+if [[ "$new_blob" == "$old_blob" ]]; then
+	log "package list unchanged; nothing to publish"
+	exit 0
+fi
+
+if [[ -n "$old_blob" ]]; then
+	# pacman -Qqe is sorted, so a plain comm gives the counts.
+	added=$(comm --nocheck-order -13 <(git cat-file blob "$old_blob") "$DOTFILES/$PKGLIST" | wc -l)
+	removed=$(comm --nocheck-order -23 <(git cat-file blob "$old_blob") "$DOTFILES/$PKGLIST" | wc -l)
+	msg="Update pkglist (+$added, -$removed)"
+else
+	msg="Update pkglist"
+fi
+
+if (( dry_run )); then
+	log "would commit: $msg"
+	[[ -n "$old_blob" ]] && git --no-pager diff --no-color "$old_blob" "$new_blob"
+	exit 0
+fi
+
+# Boot-time runs (Persistent=true) can beat the network up, so retry a little.
+fetched=0
+for attempt in 1 2 3 4 5; do
+	if git fetch --quiet origin main; then
+		fetched=1
+		break
+	fi
+	log "fetch failed (attempt $attempt/5); retrying in 60s"
+	sleep 60
+done
+(( fetched )) || die "could not reach origin"
+
+local_main=$(git rev-parse --verify main)
+remote_main=$(git rev-parse --verify origin/main)
+if [[ "$local_main" != "$remote_main" ]]; then
+	if git merge-base --is-ancestor "$local_main" "$remote_main"; then
+		# Local main is behind: fast-forward it so the push isn't rejected.
+		if [[ "$branch" == main ]]; then
+			git merge --ff-only origin/main || die "cannot fast-forward main"
+		else
+			git update-ref refs/heads/main "$remote_main" "$local_main"
+		fi
+		local_main="$remote_main"
+		log "fast-forwarded main to origin/main"
+	elif ! git merge-base --is-ancestor "$remote_main" "$local_main"; then
+		die "main and origin/main have diverged; resolve that by hand"
+	fi
+	# Otherwise local main is simply ahead, and its commits go out with ours.
+fi
+
+if [[ "$branch" == main ]]; then
+	# The pathspec keeps this to one file even if the worktree is dirty.
+	git commit --quiet -m "$msg" -- "$PKGLIST"
+else
+	# Build the commit on main without checking it out: main's tree, one blob
+	# replaced, nothing else can ride along.
+	index=$(mktemp -u "${TMPDIR:-/tmp}/pkglist-sync-index.XXXXXX")
+	export GIT_INDEX_FILE="$index"
+	git read-tree main
+	git update-index --add --cacheinfo "100644,$new_blob,$PKGLIST"
+	tree=$(git write-tree)
+	unset GIT_INDEX_FILE
+	commit=$(git commit-tree "$tree" -p "$local_main" -m "$msg")
+	# Compare-and-swap: refuses if main moved under us since the check above.
+	git update-ref refs/heads/main "$commit" "$local_main"
+fi
+
+git push --quiet origin main || die "push to main was rejected; nothing rewritten"
+log "published: $msg"
+
+# desktop is main plus the monitor commit, so bring it along. Best effort: the
+# package list is already safe on main by this point.
+if [[ "$branch" == desktop ]]; then
+	other=$(git status --porcelain --untracked-files=no -- ":(exclude)$PKGLIST")
+	if [[ -n "$other" ]]; then
+		log "worktree has other local changes; desktop left for you to merge"
+		exit 0
+	fi
+	# Safe to discard: this exact content is committed and pushed on main.
+	git checkout -- "$PKGLIST"
+	if git merge --quiet --no-edit main; then
+		git push --quiet origin desktop || log "desktop merged locally, but its push failed"
+	else
+		git merge --abort
+		git cat-file blob "$new_blob" >"$DOTFILES/$PKGLIST"
+		log "main published, but merging it into desktop conflicts; resolve by hand"
+	fi
+fi

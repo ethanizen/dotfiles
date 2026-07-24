@@ -53,9 +53,37 @@ To restore the package set on a fresh Arch install:
 sudo pacman -S --needed - < .config/pacman/pkglist.txt
 ```
 
-Regenerate that list after installing or removing anything:
+Regenerate that list by hand after installing or removing anything:
 ```bash
 pacman -Qqe > .config/pacman/pkglist.txt
+```
+
+Or leave it to the weekly timer — see below.
+
+## Package list sync
+
+`.local/bin/dotfiles-pkglist-sync` regenerates the package list and publishes
+it, driven by a weekly user timer. It commits to `main` even when `desktop` is
+checked out, by taking main's tree and swapping the one blob, so it cannot
+commit anything but the package list. Pushes are append-only: no `--force`, no
+history rewriting. Anything unexpected — a diverged `main`, staged changes, a
+detached HEAD — stops the run instead of being resolved automatically. If the
+worktree has other uncommitted changes, `main` is still published and `desktop`
+is left for you to merge.
+
+It reads its credential setup from `~/.config/dotfiles-sync.env`, which is
+machine-local and deliberately not tracked here. Set that up, then:
+
+```bash
+systemctl --user enable --now dotfiles-pkglist-sync.timer
+```
+
+Check on it:
+```bash
+dotfiles-pkglist-sync --dry-run                        # what would go out
+systemctl --user start dotfiles-pkglist-sync.service   # run it now
+journalctl --user -u dotfiles-pkglist-sync.service     # what it did
+systemctl --user list-timers dotfiles-pkglist-sync.timer
 ```
 
 ## Branches
