@@ -26,7 +26,9 @@ Config files for
 │   └── zsh
 ├── .gitconfig
 ├── .local
-│   └── bin
+│   ├── bin
+│   └── share
+│       └── Steam    # CS2 autoexec.cfg / practice.cfg
 └── .zshrc
 ```
 

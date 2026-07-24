@@ -6,7 +6,4 @@
 \.steam*
 \.steam/*
 
-# Steam game data lives here on this machine; .local/bin is still stowed.
-\.local/share
-
 README.*
