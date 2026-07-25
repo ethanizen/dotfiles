@@ -1,0 +1,27 @@
+[Unit]
+Description=Publish the pacman package list to the dotfiles repo
+Documentation=https://github.com/ethanizen/dotfiles
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/dotfiles-pkglist-sync
+# The script retries a failed fetch for up to five minutes, so give it room.
+TimeoutStartSec=600
+
+# This unit only ever needs to read one key, rewrite one tracked file, and talk
+# to github.com. If your kernel refuses any of these (user services need
+# unprivileged user namespaces), drop the offending line rather than the lot.
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHostname=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictNamespaces=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
