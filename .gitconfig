@@ -3,7 +3,17 @@
 # Please adapt and uncomment the following lines:
 name = Ethan Izenwasser
 email = 40236542+ethanizen@users.noreply.github.com
+signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIabJ3erlsZJ5BHgcYVKt9e2L9dnmJBMKX3/Ve/IrXCS
 [init]
 	defaultBranch = main
 [credential]
 	helper = cache
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = git-ssh-sign
+
+[commit]
+  gpgsign = true
+
