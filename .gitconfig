@@ -13,6 +13,7 @@ signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIabJ3erlsZJ5BHgcYVKt9e2L9dnmJB
 
 [gpg "ssh"]
   program = git-ssh-sign
+  allowedSignersFile = ~/.ssh/allowed_signers
 
 [commit]
   gpgsign = true
