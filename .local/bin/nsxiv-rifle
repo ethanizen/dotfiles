@@ -1,0 +1,14 @@
+#!/bin/sh
+# Open an image in nsxiv with the rest of its directory loaded, starting on that image.
+
+[ $# -eq 1 ] && [ -f "$1" ] || exec nsxiv -- "$@"
+
+dir=$(dirname -- "$1")
+base=$(basename -- "$1")
+
+list=$(find "$dir" -maxdepth 1 -type f \
+	-iregex '.*\.\(png\|jpe?g\|gif\|webp\|avif\|svg\|bmp\|tiff?\|heic\|heif\|jxl\)' | sort -V)
+idx=$(printf '%s\n' "$list" | awk -F/ -v b="$base" '$NF == b { print NR; exit }')
+
+[ -n "$idx" ] || exec nsxiv -- "$1"
+printf '%s\n' "$list" | exec nsxiv -n "$idx" -i
