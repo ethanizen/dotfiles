@@ -89,7 +89,7 @@ systemctl --user list-timers dotfiles-pkglist-sync.timer
 ## Branches
 
 `main` holds everything machine-agnostic. `desktop` is `main` plus a single
-commit carrying `.config/hypr/monitors.conf` for the dual-monitor setup. Do
+commit carrying `.config/hypr/monitors.lua` for the dual-monitor setup. Do
 non-monitor work on `main` and rebase `desktop` onto it, so the two hosts
 don't drift.
 
