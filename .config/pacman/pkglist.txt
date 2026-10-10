@@ -1,3 +1,5 @@
+1password
+1password-cli
 7zip
 accountsservice
 alacritty
@@ -44,6 +46,7 @@ chafa
 chromium
 chwd
 claude-code
+claude-desktop
 cliphist
 cpupower
 cryptsetup
@@ -75,12 +78,16 @@ firefox
 foot
 fsarchiver
 geekbench
+gimp
 git
+github-cli
 glances
 glow
 gnome-calculator
+gnome-keyring
 gparted
 gphoto2
+gptfdisk
 grim-hyprland-git
 gst-libav
 gst-plugin-pipewire
@@ -123,6 +130,7 @@ linux-cachyos-headers
 linux-cachyos-lts
 linux-cachyos-lts-headers
 linux-firmware
+linux-soundboard
 logrotate
 lsb-release
 lsscsi
@@ -155,6 +163,7 @@ noto-fonts-cjk
 noto-fonts-emoji
 npm
 nss-mdns
+nsxiv
 ntp
 nwg-displays
 octopi
@@ -185,6 +194,7 @@ pyright
 python
 python-defusedxml
 python-packaging
+python-pip
 qemu-full
 qt6ct
 ranger
@@ -192,6 +202,7 @@ rawtherapee
 rebuild-detector
 reflector
 ripgrep
+rivalcfg
 rocm-hip-sdk
 rocm-opencl-sdk
 rsync
@@ -199,13 +210,17 @@ rust
 s-nail
 samba
 satty
+sbctl
 scdoc
 sddm
+seahorse
 sg3_utils
 slurp
 smartmontools
 snapper
 sof-firmware
+soundux-git
+spotify-launcher
 sshfs
 steam
 stow
@@ -254,6 +269,7 @@ wev
 wf-recorder
 wget
 which
+wimlib
 wireless-regdb
 wireplumber
 wl-clipboard
@@ -269,3 +285,5 @@ xl2tpd
 xorg-xwayland
 yay
 yazi
+youtube-dl
+yt-dlp
