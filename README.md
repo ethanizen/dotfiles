@@ -88,9 +88,10 @@ systemctl --user list-timers dotfiles-pkglist-sync.timer
 
 ## Branches
 
-`main` holds everything machine-agnostic. `desktop` is `main` plus a single
-commit carrying `.config/hypr/monitors.lua` for the dual-monitor setup. Do
-non-monitor work on `main` and rebase `desktop` onto it, so the two hosts
-don't drift.
+`main` holds everything machine-agnostic. `desktop` is `main` plus a few
+desktop-only commits: `.config/hypr/monitors.lua` for the dual-monitor setup
+and the 1Password commit-signing config. Do everything else on `main` and
+merge it into `desktop`, so the two hosts don't drift. Merge rather than
+rebase -- `desktop` is pushed, and rebasing would mean force-pushing it.
 
 See? Easy.
